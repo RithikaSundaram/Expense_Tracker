@@ -22,14 +22,10 @@ app.use("/",static)  // if we use /forms instead of / --> cannot GET/
 
 /*app.get("/hi", (req,res)=>{
     console.log(req.query); 
-    //res.send("Hello");
-    res.json({
-        name: req.query.name,
-        description:req.query.description,
-        date:req.query.date,
-
-    })
-});*/
+    res.json(req.query)
+}); */ //post -- >boy in postman
+//get params in postman
+//if we give params it will automatically updates the url
 
 //get method --> query
 //post method --> body
@@ -45,7 +41,15 @@ app.post("/hi", (req,res)=>{
     })
 });
 
-
+//fetch is an package
+app.get("/todos", async(req,res) => {
+    //fetch('https://jsonplaceholder.typicode.com/todos/1')
+   //.then((response)=>response.json())
+   //.then((json)=>res.json(json));
+   const response = await fetch("https://jsonplaceholder.typicode.com/todos")
+   const todos = await response.json()
+   res.json(todos)
+});
 
 app.listen(5001, () =>{
     console.log("App Running");
