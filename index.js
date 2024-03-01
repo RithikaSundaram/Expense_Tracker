@@ -10,6 +10,9 @@
 
 const express = require('express')
 const app = express()
+const bodyParser = require("body-parser");
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended:true}))
 
 const static = express.static("static")
 app.use("/",static)  // if we use /forms instead of / --> cannot GET/
@@ -17,18 +20,33 @@ app.use("/",static)  // if we use /forms instead of / --> cannot GET/
 //app.use -- > app.get
 
 
-app.get("/hi", (req,res)=>{
+/*app.get("/hi", (req,res)=>{
     console.log(req.query); 
     //res.send("Hello");
     res.json({
         name: req.query.name,
         description:req.query.description,
         date:req.query.date,
-        
+
     })
-   
+});*/
+
+//get method --> query
+//post method --> body
+app.post("/hi", (req,res)=>{
+    console.log(req.body); 
+    //res.send("Hello");
+    res.json({
+        name: req.body.name,
+        description:req.body.description,
+        date:req.body.date,
+        amount:req.body.amount,
+
+    })
 });
 
-app.listen(3000, () =>{
+
+
+app.listen(5001, () =>{
     console.log("App Running");
 });
