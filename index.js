@@ -52,20 +52,47 @@ app.post("/hi", (req,res)=>{
    res.json(todos)
 });*/
 
-app.get("/todos/2", async(req,res) => {
+/*app.get("/todos/2", async(req,res) => {
     //fetch('https://jsonplaceholder.typicode.com/todos/1')
    //.then((response)=>response.json())
    //.then((json)=>res.json(json));
    const response = await fetch("https://jsonplaceholder.typicode.com/todos/2")
    const todos = await response.json()
    res.json(todos)
-});
+});*/
 
 //to generate the todos for many times
+//to create dynamically
 //id-->key(here)
-app.get("/todos/:id",async(req,res) => {
-    const {id:todoId} = req.params;
-    res.json(todoId)
+//Network failed (error handling)
+/*app.get("/todos",async(req,res) => {
+    try{
+    const response = await fetch("https://jsonplaceholder.typicode.com/todos")    
+    const todos = await response.json()
+    res.json(todos)
+    }catch(err){
+        res.status(503).json({
+            error:'API call failed',
+        })
+    }
+})*/
+
+
+app.get("/todos",async(req,res) => {
+    try{
+    const response = await fetch("https://jsonplaceholder.typicode.com/todos")    
+    const todos = await response.json()
+    res.json(todos)
+    }catch(err){
+        res.status(503).json({
+            error:'API call failed',
+        })
+    }
+})
+
+//wildcard enpoint-->if other than above paths then this will be run
+app.get("*", (req,res) => {
+    res.json({});
 })
 
 app.listen(5001, () =>{
